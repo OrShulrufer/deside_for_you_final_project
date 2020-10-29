@@ -1,138 +1,57 @@
 
 
-<!--user Modal -->
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #e9e9e9;">
-        <h5 class="modal-title" id="userModalLabel">{{modalTitle}}</h5>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-		
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<!--
-			<li role="presentation" ng-show="!googleSignedIn && !regularSignedIn && showLogin" ng-class="!googleSignedIn && !regularSignedIn && showLogin ?'active':''"><a href="#login" aria-controls="login" role="tab" data-toggle="tab" target="_self" ng-click="prepareNormalSignIn()">Login</a>
-			</li>
-			<li role="presentation" ng-show="!googleSignedIn && !regularSignedIn && showSignUp" ng-class="!googleSignedIn && !regularSignedIn && showSignUp ?'active':''"><a href="#signup" aria-controls="signup" role="tab" data-toggle="tab" target="_self" ng-click="prepareNormalSignUp()" class="btn-default">Sign Up</a>
-			</li>
-			-->
-			<li role="presentation" ng-show="googleSignedIn || regularSignedIn" class="active" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" target="_self">Profile</a> <!--ng-class="googleSignedIn || regularSignedIn?'active':''"-->
-			</li>
-			<li role="presentation" ng-show="user.is_course_provider" class=""><a href="#addCourse" aria-controls="addCourse" role="tab" data-toggle="tab" target="_self">Add Course</a>
-			</li>
-		  </ul>
-
-		  <!-- Tab panes -->
-		  <div class="tab-content">
-			 <!--
-			<div role="tabpanel" ng-show="showLogin" ng-class="!googleSignedIn && !regularSignedIn && showLogin ? 'tab-pane active':'tab-pane'" id="login"><user-form login="!googleSignedIn && !regularSignedIn" signup="" profile="" action="homeLogin" user="user"></user-form></div>
-			<div role="tabpanel" ng-show="showSignUp" ng-class="!googleSignedIn && !regularSignedIn && showSignUp ? 'tab-pane active':'tab-pane'" id="signup"><user-form login="" signup="!googleSignedIn && !regularSignedIn" profile=""  action="homeRegister" user="user"></user-form></div>
-			-->
-			<div role="tabpanel" ng-show="googleSignedIn || regularSignedIn" class="tab-pane active"  id="profile"><user-form login="" signup="" profile="'true'" action="homeUpdateProfile" user="userCopy" cancel="restoreUserCopy"></user-form></div> <!--ng-class="googleSignedIn || regularSignedIn? 'tab-pane active':'tab-pane'"-->
-			<div role="tabpanel" ng-show="user.is_course_provider" class="tab-pane" id="addCourse"><add-course user="user"></add-course></div>
-		  </div>
-		  
+        ...
       </div>
       <div class="modal-footer">
-		<div ng-show="UserModalErrorMsg" class="alert alert-danger pull-left" role="alert">
-			{{UserModalErrorMsg}}
-		</div>
-		<button ng-show="!needToCompleteProfile" type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
-		<button ng-show="needToCompleteProfile" type="button" class="btn btn-secondary" ng-click="signOut()" data-dismiss="modal">Sign out</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
-
-<!--course Modal -->
-<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<div class="modal-header" style="background-color: #e9e9e9;">
-		  <h5 class="modal-title" id="courseModalLabel">{{courseModalTitle}}</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-		  <course-details course="selectedCourse"></course-details>
-		</div>
-		
-	  </div>
-	</div>
-  </div>
-
-  <!--sign in/up modal -->
-<div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 100%;max-width:430px;" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="signModalLabel">Sign In/Up</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <!--checkvalue="homeControllerScopeValue"-->
-		<user-sign user="user"  errormessage="ucModel.signInUpError" login="homeLogin" register="homeRegister"></user-sign>
-		<!--
-		<div class="modal-body">
-		  
-		</div>
-		-->
-	  </div>
-	</div>
-  </div>
-  
 <!--header-top start -->
-  		<!--make sure z-index:-1  not messing pointer cursor or any styling -->
-		<header id="header-top" class="header-top" style="z-index:-1;height: 60px;background-color: #e9e9e9;"> 
+		<header id="header-top" class="header-top" style="height: 60px;"> 
 			<ul>
-				<li class="head-responsive-right">
-					<div class="header-top-right" style="color: black;">
+				<li class="head-responsive-right pull-right">
+					<div class="header-top-right">
 						<ul>
-							<li class="header-top-contact" style="color: black;" ng-show="!googleSignedIn && !regularSignedIn">
-								<a href="" data-toggle="modal"  data-target="#signModal" ng-click="prepareNormalSignUp()">Sign In / Up</a> <!--data-target="#userModal"-->
+							<li class="header-top-contact" ng-show="!googleSignedIn && !regularSignedIn">
+								<a href="#register">register</a>
 							</li>
-							<!--
-							<li class="header-top-contact" style="color: black;" ng-show="!googleSignedIn && !regularSignedIn">
-								<a href="" data-toggle="modal" data-target="#userModal" ng-click="prepareNormalSignIn()">Log In</a>
-							</li>
-							-->
-							<li class="header-top-contact" ng-show="googleSignedIn || regularSignedIn">
-								<div class="dropdown">
-									<button ng-show="googleSignedIn || regularSignedIn" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
-									 <!--Dropdown <span class="caret"></span>-->
-									 <!--<i class="flaticon-list-with-dots" ng-show="!googleSignedIn && !regularSignedIn"></i>-->
-									 <span><i class="fa fa-user"></i>  {{userName}}</span>
-									</button>
-									<ul class="dropdown-menu">
-										<li ng-show="googleSignedIn || regularSignedIn"><a href=""  data-toggle="modal" data-target="#userModal">Profile</a></li>
-									  <li ng-show="googleSignedIn || regularSignedIn"><a href="" ng-click="signOut()">Sign-out</a></li>
-									</ul>
-								  </div>
-							</li>
-							<!--
-							<li class="header-top-contact alert-success">Welcome! signed-in user will probably get more accurate result
-							</li>
-							-->
+							
 							<li class="header-top-contact">
 								
-								  
-								<div>
-									<form>
-										<select  style="color:black;text-align-last:center;" name="" id="selectTopic3"  ng-model="selectedTopic" ng-options="topic for topic in topics | orderBy:'' track by topic">
-											<option disabled selected value> -- get courses by subject -- </option>
-										</select>
-										<button title="search courses by subject" ng-click="searchCourseByTopic()"><i class="fa fa-search" style="font-size: 20px;"></i></button>
-									</form>
-								</div>
-								
+								<div class="dropdown">
+									<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
+									 <!--Dropdown <span class="caret"></span>-->
+									 <i class="flaticon-list-with-dots" ng-show="!googleSignedIn && !regularSignedIn"></i>
+									 <span ng-show="googleSignedIn || regularSignedIn">{{userName}}</span>
+									</button>
+									<ul class="dropdown-menu">
+									  <li ng-show="googleSignedIn"><a href="" ng-click="signOut()">Sign-out</a></li>
+									  <!--<li><a href="#">Another action</a></li>-->
+									  <li ng-show="!googleSignedIn && !regularSignedIn"><a href="#">sign in (with password)</a></li>
+									</ul>
+								  </div>
+								<!--
+								<button type="button" data-toggle="modal" data-target="#exampleModal">
+									Launch demo modal
+								  </button>
+								  -->
 							</li>
+							
 						</ul>
 					</div>
 				</li>
@@ -160,8 +79,7 @@
 			            </div><!--/.navbar-header-->
 			            <!-- End Header Navigation -->
 
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<!--
+			            <!-- Collect the nav links, forms, and other content for toggling -->
 			            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
 			                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 			                    <li class=" scroll active"><a href="#home">home</a></li>
@@ -170,9 +88,8 @@
 			                    <li class="scroll"><a href="#reviews">review</a></li>
 			                    <li class="scroll"><a href="#blog">blog</a></li>
 			                    <li class="scroll"><a href="#contact">contact</a></li>
-			                </ul><!- -/.nav - ->
-						</div><!- - /.navbar-collapse - ->
-						-->
+			                </ul><!--/.nav -->
+			            </div><!-- /.navbar-collapse -->
 			        </div><!--/.container-->
 			    </nav><!--/nav-->
 			    <!-- End Navigation -->
@@ -183,26 +100,77 @@
 		<!-- top-area End -->
 
 		<!--welcome-hero start -->
-		<section id="home" class="welcome-hero" > <!--add? style="height: 500px;"-->
+		<section id="home" class="welcome-hero">
 			<div class="container">
 				<div class="welcome-hero-txt">
-					<h2>Get Course Recommendation <br> By one click </h2> <a ng-show="!googleSignedIn && !regularSignedIn" href="" data-toggle="modal"  data-target="#signModal" ng-click="prepareNormalSignUp()"  style="color: white;">(but first, sign up)</a>
+					<h2>Get Course Recommendation <br> By one click </h2>
+					<p>
+						Get Course Recommendation in just One click
+					</p>
 				</div>
-				<div class="welcome-hero-serch-box" style="margin: auto;width: 100%;">
-					<div ng-show="needToCompleteProfile" class="welcome-hero-serch" style="margin: auto" >
-						you must complete filling profile details before
+				<div class="welcome-hero-serch-box">
+					<div class="welcome-hero-form">
+						<div class="single-welcome-hero-form">
+							<h3>subject</h3>
+
+							<form action="index.html">
+								<!--<input type="text" placeholder="Ex: palce, resturent, food, automobile" />-->
+								<select class="select-opt" name="" id="selectTopic3" style="color:black;" ng-model="selectedTopic" ng-options="topic for topic in topics | orderBy:'' track by topic"> <!--topic.name for topic in topics-->
+
+								</select>
+							</form>
+							<div class="welcome-hero-form-icon">
+								<i class="flaticon-list-with-dots"></i>
+							</div>
+
+						</div>
+						<div class="single-welcome-hero-form">
+							<h3>user id</h3>
+							<form>
+								<input type="text" placeholder="" ng-model="inputUserId"/>
+							</form>
+							<!--
+							<div class="welcome-hero-form-icon">
+								<i class="flaticon-gps-fixed-indicator"></i>
+							</div>
+							-->
+						</div>
 					</div>
-
-
-					<!--style="margin: auto;width: 50%;">-->
-					<div ng-show="(googleSignedIn || regularSignedIn) && !needToCompleteProfile && !user.is_course_provider" class="welcome-hero-serch" style="margin: auto" >
-						<button class="welcome-hero-btn" ng-click="searchCourseByUser()" ng-show="!isLoading">
-							 Get Recommendations    <span class="glyphicon glyphicon-search"></span><i data-feather="search"></i>
+					<div class="welcome-hero-serch">
+						<button class="welcome-hero-btn" ng-click="searchCourses()" ng-show="!isLoading">
+							 search courses  <i data-feather="search"></i>
 						</button>
 						<!--<img src="./img/Spinner-1s-64px.gif" ng-show="isLoading">-->
 						<div class="lds-roller" ng-show="isLoading"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 					</div>
 				</div>
+				<!--
+				<div class="welcome-hero-serch-box">
+					<div class="welcome-hero-form">
+						<div class="single-welcome-hero-form">
+							<select class="select-opt" name="" id="selectSubj" style="color:darkgreen ;">
+								<option value="volvo">Volvo</option>
+								<option value="saab">Saab</option>
+								<option value="mercedes">Mercedes</option>
+								<option value="audi">Audi</option>
+							</select>
+						</div>
+						<div class="single-welcome-hero-form">
+							<select class="select-opt" name="" id="selectSubj2	" style="color:darkgreen ;">
+								<option value="volvo">Volvo</option>
+								<option value="saab">Saab</option>
+								<option value="mercedes">Mercedes</option>
+								<option value="audi">Audi</option>
+							</select>
+						</div>
+						<div class="welcome-hero-serch">
+							<button class="welcome-hero-btn" onclick="window.location.href='#'">
+								 search  <i data-feather="search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				-->
 			</div>
 
 		</section><!--/.welcome-hero-->
@@ -210,7 +178,7 @@
 
 
 		<section id="coursesList">
-				<table class="table table-responsive" style="background-color:darkslategray; color:whitesmoke" >
+				<table class="table table-dark">
 					<!--<caption><h2>Courses</h2></caption>-->
 				  <thead>
 					<tr>
@@ -222,16 +190,10 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					<tr ng-repeat="course in resultCourses" class="course-row" ng-click="openCourseDetails(this)">
-						<th scope="row">{{course["ordNum"]}}</th>
+					<tr ng-repeat="course in resultCourses">
+						<th scope="row">1</th>
 						<td>{{course["course_title"]}}</td>
-						<td>
-							<div>
-								<span >{{course["descriptionText"]}}</span>								
-								<span class="more" ng-show="!course.showMore && course.lessDescription" ng-click="toggleMore($event,this)">more...</span> <!--{{course["description"]}}-->
-								<span class="more" ng-show="course.showMore && course.lessDescription" ng-click="toggleMore($event,this)">less...</span> <!--{{course["description"]}}-->
-							</div>
-							</td> 
+						<td>{{course["description"]}}</td>
 						<td>{{course["topics"]}}</td>
 						<td>{{course["course_number"]}}</td>
 					</tr>
@@ -240,6 +202,48 @@
 		</section>
 
 
+
+		<!-- statistics strat -->
+		<section id="statistics"  class="statistics">
+			<div class="container">
+				<div class="statistics-counter">
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">90 </div> <span>K+</span>
+							</div><!--/.statistics-content-->
+							<h3>listings</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">40</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>listing categories</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">65</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>visitors</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+					<div class="col-md-3 col-sm-6">
+						<div class="single-ststistics-box">
+							<div class="statistics-content">
+								<div class="counter">50</div> <span>k+</span>
+							</div><!--/.statistics-content-->
+							<h3>happy clients</h3>
+						</div><!--/.single-ststistics-box-->
+					</div><!--/.col-->
+				</div><!--/.statistics-counter-->
+			</div><!--/.container-->
+
+		</section><!--/.counter-->
+		<!-- statistics end -->
 
 
 		<!--footer start-->
@@ -251,8 +255,7 @@
 			           		 <div class="navbar-header">
 				                <a class="navbar-brand" href="index.html">Decides<span>ForYou</span></a>
 				            </div><!--/.navbar-header-->
-						   </div>
-						<!--
+			           	</div>
 			           	<div class="col-sm-9">
 			           		<ul class="footer-menu-item">
 			                    <li class="scroll"><a href="#works">how it works</a></li>
@@ -261,9 +264,8 @@
 			                    <li class="scroll"><a href="#blog">blog</a></li>
 			                    <li class="scroll"><a href="#contact">contact</a></li>
 			                    <li class=" scroll"><a href="#contact">my account</a></li>
-			                </ul><!- -/.nav - ->
-						   </div>
-						-->
+			                </ul><!--/.nav -->
+			           	</div>
 		           </div>
 				</div>
 

@@ -10,27 +10,43 @@ import string
 import numpy as np
 
 
-
 class CBF:
-    @staticmethod
-    def get_courses(user_courses_list, df_courses, stop_words=None):
 
-        df_courses["combine"] = df_courses["Description"]
+    def get_courses(self, df_students, df_courses, user_id, spark):
+        print(df_courses)
+        # register data frame as table for using SQL
+        df_students.registerTempTable("students")
+        df_courses.registerTempTable("courses")
 
-        dictionary, stop_words, tf_idf, cosine_similarity_index = CBF.get_cosine_similarity_index(df_courses, stop_words)
+        # get all user's courses from the past
+        user_courses = spark.sql("SELECT DISTINCT course_id "
+                                    "FROM students "
+                                    "WHERE userid_DI = '{}'".
+                                    format(user_id)).toPandas()[columns_names.course_id].to_list()
+
+        dictionary, stop_words, tf_idf, cosine_similarity_index = self.get_cosine_similarity_index(df_courses)
 
         # get 2 recommendations for every course user took
         recomendet_courses = set()
-        for course in user_courses_list:
-            recomendet_courses |= set(CBF.get_recomendation_by_course_number(
-                df_courses, course, cosine_similarity_index, dictionary, stop_words, tf_idf))
+        for course in user_courses:
+            recomendet_courses |= set(self.get_recomendation_by_course_number(
+                df_courses, course, cosine_similarity_index, dictionary, stop_words, tf_idf, spark))
 
         return recomendet_courses
 
-    @staticmethod
-    def get_recomendation_by_course_number(df_courses, course, cosine_similarity_index, dictionary, stop_words, tf_idf):
 
-        description = df_courses.loc[df_courses['course_number'] == course, 'combine'].iloc[0]
+    def get_recomendation_by_course_number(
+            self, df_courses, course, cosine_similarity_index, dictionary, stop_words, tf_idf, spark):
+
+        # register data frame as table for using SQL
+        df_courses.registerTempTable("courses")
+
+        # get course description
+        description = spark.sql("SELECT Description "
+                                 "FROM courses "
+                                 "WHERE course_number = '{}'".
+                                 format(course)).toPandas()["Description"].to_list()[0]
+
         """
         We will use NLTK to tokenize.
         A document will now be a list of tokens.
@@ -49,24 +65,22 @@ class CBF:
         similarities = cosine_similarity_index[query_doc_tf_idf]
 
         # find the most similar courses indexes
-        indexes_of_nearest_courses = np.argpartition(similarities, -3)[-3:][:2]
-        course_list = df_courses["course_number"].to_list()
+        indexes_of_nearest_courses = np.argpartition(similarities, -3)[-3:][0:2]
+
+        course_list = df_courses.toPandas()["course_number"].to_list()
 
         best_courses = [course_list[i] for i in indexes_of_nearest_courses]
-
+        print("best courses for: ", course, " is ", best_courses)
         return best_courses
 
 
-    @staticmethod
-    def get_cosine_similarity_index(df, stop_words):
+    def get_cosine_similarity_index(self, df):
         nltk.download('punkt')
         nltk.download('stopwords')
         stop_words = set(stopwords.words('english'))
 
-        # df.sort_values(by=['course_number'], ascending=False)
-
         # Getting list of descriptions
-        raw_documents = df["combine"].to_list()
+        raw_documents = df.toPandas()["Description"].to_list()
 
         """
         We will use NLTK to tokenize.

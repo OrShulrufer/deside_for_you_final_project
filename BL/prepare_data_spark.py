@@ -1,14 +1,13 @@
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
-import pandas as pd
 
 import datetime
 import BL.columns_names as columns_names
 
 
 class Data:
-    @staticmethod
-    def prepare_data(df, spark):
+
+    def prepare_data(self, df, spark):
 
         # Select needed columns
         df_selected_columns = df.select(columns_names.user_id,
@@ -52,7 +51,7 @@ class Data:
             columns_names.age, (df_selected_columns[columns_names.age]-min_age)/(max_age-min_age))
         """
         # normalize age column
-        df_selected_columns = Data.normalize(df_selected_columns, columns_names.age)
+        df_selected_columns = self.normalize(df_selected_columns, columns_names.age)
 
         # normalize education column
         df_selected_columns = df_selected_columns.withColumn(
@@ -84,49 +83,34 @@ class Data:
             otherwise(F.col(columns_names.latitude)))
 
         # normalize latitude column
-        countries_students_join = Data.normalize(countries_students_join, columns_names.latitude)
+        countries_students_join = self.normalize(countries_students_join, columns_names.latitude)
 
         # normalize longitude column
-        countries_students_join = Data.normalize(countries_students_join, columns_names.longitude)
+        countries_students_join = self.normalize(countries_students_join, columns_names.longitude)
 
 
 
         return countries_students_join
 
-    @staticmethod
-    def put_waits(df, w0=1, w1=1, w2=1, w3=1, w4=1):
-        df[columns_names.gender] = df[columns_names.gender] * w0
-        df[columns_names.age] =  df[columns_names.age] * w1
-        df[columns_names.education] = df[columns_names.education] * w2
-        df[columns_names.latitude] =  df[columns_names.latitude] * w3
-        df[columns_names.longitude] = df[columns_names.longitude] * w4
+
+
+    def put_waits(self, df, w0=1, w1=1, w2=1, w3=1, w4=1):
+
+        df = df.withColumn(columns_names.gender, df[columns_names.gender] * w0)
+        df = df.withColumn(columns_names.age, df[columns_names.age] * w1)
+        df = df.withColumn(columns_names.education, df[columns_names.education] * w2)
+        df = df.withColumn(columns_names.latitude, df[columns_names.latitude] * w3)
+        df = df.withColumn(columns_names.longitude, df[columns_names.longitude] * w4)
 
         return df
 
-    @staticmethod
-    def normalize(df, column_name):
+    def normalize(self, df, column_name):
         # get minimum and maximum ages
         max = df.select(column_name).rdd.max()[0]
         min = df.select(column_name).rdd.min()[0]
 
         # normalize age column
         return df.withColumn(column_name, (df[column_name]-min)/(max-min))
-
-    @staticmethod
-    def train_val_test(data):
-        data = data[['userid_DI', 'course_id']]
-        test = data.iloc[::5, :]
-        test.to_csv("test.csv", index=False)
-
-        val = data.iloc[2::5, :]
-        val.to_csv("val.csv", index=False)
-
-        train1 = data.iloc[1::5, :]
-        train3 = data.iloc[3::5, :]
-        train4 = data.iloc[4::5, :]
-        train = pd.concat([train1, train3, train4]).sort_index().reset_index(drop=True)
-        train.to_csv("train.csv", index=False)
-
 
 
 

@@ -489,7 +489,7 @@
                 $(".wrap-sticky").height(getHeight);
                 
                 // Windown on scroll
-                var getOffset = $(".wrap-sticky").offset() ? $(".wrap-sticky").offset().top :0; //dan: add condition
+                var getOffset = $(".wrap-sticky").offset().top;
                 $(window).on("scroll", function(){  
                     var scrollTop = $(window).scrollTop();
                     if(scrollTop > getOffset){

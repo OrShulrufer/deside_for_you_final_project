@@ -1,74 +1,40 @@
 import BL.columns_names as columns_names
 
-import pandas as pd
-
 
 class CF:
 
-    @staticmethod
-    def get_curses(df, user_id):
+    def get_curses(self, df, user_id, spark):
+        # after returning result and done using the temp table => sqlContext.dropTempTable("temp_table_name")
+        df.registerTempTable("students_clusters")
+        cluster_by_user = spark.sql("SELECT * "
+                                    "FROM students_clusters "
+                                    "WHERE prediction = "
+                                    "(SELECT DISTINCT prediction "
+                                    "FROM students_clusters "
+                                    "WHERE userid_DI = '{}')".
+                                    format(user_id))
 
-        df1 = df.T
+        cluster_by_user.registerTempTable("selected_cluster")
+        curses_that_user_tooke = spark.sql("SELECT DISTINCT course_id "
+                                           "FROM selected_cluster "
+                                           "WHERE userid_DI = '{}'".
+                                           format(user_id))
 
-        # get list of courses that user took
-        courses = df1.index[df1[user_id] == 1].tolist()
-        print("user took courses")
-        print(courses)
-        df1 = df1.T
+        curses_that_user_tooke.registerTempTable("curses_that_user_tooke")
+        users_that_tooke_the_same_classes = spark.sql("SELECT DISTINCT s.userid_DI "
+                                                      "FROM selected_cluster as s, curses_that_user_tooke  as c "
+                                                      "WHERE s.course_id = "
+                                                      "c.course_id "
+                                                      "and "
+                                                      "s.userid_DI != '{}'".
+                                                      format(user_id))
 
-        # get matrix with only courses that user took
-        df1 = df1[courses]
-
-        # get users that have all courses that user have
-        for column in courses:
-            df1 = df1[df1[column] == 1]
-
-        # get users list
-        users_list = df1.index.values.tolist()
-
-        # get all courses list
-        all_courses = list(df.columns)
-        # get courses that user did not do yet
-        courses_list = list(set(all_courses).difference(courses))
-
-        # get df with columns of courses that user did not have
-        df = df[courses_list]
-        df = df.T
-        # get df with only relevant users
-        df = df[users_list]
-        df = df.T
-
-        return CF.get_courses_prioreties(df, df.columns[df.eq(1).any()].tolist()), courses
-
-    # get list of courses propertiesed descending by popularity of courses
-    @staticmethod
-    def get_courses_prioreties(df, courses_list):
-        courses = []
-        # get all recommendations to list of courses id
-        #list_of_courses = df.columns.values.tolist()
-
-        # make tuples of course id and number of people took it in cluster
-        for course in courses_list:
-                courses.append((course, (df[course] == 1).sum()))
-
-        # sort tuples by course popularity
-        courses = sorted(courses, key=lambda x: x[1], reverse=True)
-
-        # from tuples to list of only courses id
-        courses = list(map(lambda x: x[0], courses))
-
-        return courses
-
-
-
-
-
-
-
-
-
-
-
-
+        users_that_tooke_the_same_classes.registerTempTable("users_that_tooke_the_same_classes")
+        return spark.sql("SELECT DISTINCT s.course_id "
+                         "FROM selected_cluster as s inner join "
+                         "users_that_tooke_the_same_classes as u ON s.userid_DI = u.userid_DI  "
+                         "WHERE  "
+                         "s.course_id NOT IN (select course_id from curses_that_user_tooke) ").\
+                         toPandas()[columns_names.course_id].to_list()
 
 

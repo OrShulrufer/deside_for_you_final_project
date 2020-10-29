@@ -23,7 +23,7 @@ $(document).ready(function(){
 
     // 1. Scroll To Top 
 		$(window).on('scroll',function () {
-			if ($(this).scrollTop() > 300) { //was 600
+			if ($(this).scrollTop() > 600) {
 				$('.return-to-top').fadeIn();
 			} else {
 				$('.return-to-top').fadeOut();
@@ -35,7 +35,8 @@ $(document).ready(function(){
 			}, 1500);
 			return false;
 		});
-
+	
+	
 	// 2. slick carousel
 
 	    $(".testimonial-carousel").slick({
@@ -102,9 +103,7 @@ $(document).ready(function(){
 
 		feather.replace();
 
-		//dan: responsible for counter animation (counting statistics...)
 	// 5. counter
-	
 		$(window).on('load', function(){	
 			$('.counter').counterUp({
 				delay: 10,
@@ -112,78 +111,4 @@ $(document).ready(function(){
 			});	
 		});
 
-		/*
-		$(document).on('click','#logreg-forms #btn-signup',toggleSignUp);
-		$(document).on('click','#logreg-forms #cancel_signup',toggleSignUp);
-		*/
-
 });
-
-function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
-  function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-	  var c = ca[i];
-	  while (c.charAt(0) == ' ') {
-		c = c.substring(1);
-	  }
-	  if (c.indexOf(name) == 0) {
-		return c.substring(name.length, c.length);
-	  }
-	}
-	return "";
-  }
-
-  function deleteCookie(cname){
-	var name = cname + "=";
-	document.cookie = name+"; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  }
-  var numPattern=/[0-9 ]/g;
-  var allowedInEnglish='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ :;,.?!£$%^&*()_+-*{}@~<>&"\'';
-  function isKeyEnglishLng(key){
-	let char=String.fromCharCode(key);
-	return allowedInEnglish.indexOf(char) !=-1 || numPattern.test(char);
-  }
-
-  function validateEmail(email){
-	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return re.test(String(email).toLowerCase());
-  }
-
-  function validURL(str) {
-	var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-	  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-	  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-	  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-	  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-	  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-	return !!pattern.test(str);
-  }
-
-  function isNullOrUndefined(param){
-		return param === null || param === undefined;
-  }
-
-  /*
-  function toggleSignUp(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle(); // display:block or none
-    $('#logreg-forms .form-signup').toggle(); // display:block or none
-}
-
-
-$(()=>{
-    // Login Register Form
-    $('#logreg-forms #btn-signup').click(toggleSignUp);
-    $('#logreg-forms #cancel_signup').click(toggleSignUp);
-})
-
-*/
