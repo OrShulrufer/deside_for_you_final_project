@@ -211,7 +211,9 @@ def update_user_profile():
 
 
 '''
-The data past the ? indicate it's a query parameter, so they won't be included in that patter. You can either access that part form request.query_string or build it back up from the request.args as mentioned in the comments
+The data past the ? indicate it's a query parameter, so they won't be included in that patter.
+You can either access that part form request.query_string or build it back up from the request.args 
+as mentioned in the comments
 '''
 
 

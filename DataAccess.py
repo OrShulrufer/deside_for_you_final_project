@@ -413,8 +413,7 @@ def call_sp(sp_name, args_list=None):
         cursor.close()
         conn.close()
 
-
-
+"""
 if __name__ == '__main__':
     #insert_new_course_to_system("new_course","blarg'",'calrg',"math","'dasd\"das'")
     #print(get_courses("Math"))
@@ -422,6 +421,6 @@ if __name__ == '__main__':
     print(get_demogr_details_by_user("MHxPC130251105"))
     #call_sp('sp_updateYoB',[1944, 'dan_ko@outlook108.com'])
     #call_sp('sp_updateLongLat',['dan_ko@outlook108.com'])
-
+"""
 
 

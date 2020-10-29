@@ -10,6 +10,7 @@ DB_USER = "root"
 DB_PASSWORD = "ZSMUnFWc3bZSMUnFWc3b"
 
 from sqlalchemy import create_engine
+import BL.columns_names as columns_names
 
 DB_URL="{host}:3306/{dbname}".format(host=DB_HOST,dbname=DB_NAME)
 pymysql_engine_url = "mysql+pymysql://{dbuser}:{dbpass}@{dburl}".format(dbuser=DB_USER, dbpass=DB_PASSWORD, dburl=DB_URL)
