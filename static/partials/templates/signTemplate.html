@@ -1,0 +1,37 @@
+<div id="logreg-forms">
+    <form class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+        <div class="social-login">
+            <button class="btn google-btn social-btn" type="button" onclick="$('#google').trigger('click');"><span><i class="fa fa-google-plus"></i> Sign in with Google</span> </button>
+        </div>
+        <p style="text-align:center"> OR  </p>
+        <input type="text" id="inputEmail" ng-model="user.email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="password" id="inputPassword" ng-model="user.password" class="form-control" placeholder="Password" required="">
+        <div ng-show="errormessage" class="alert alert-danger pull-left" role="alert">
+			{{errormessage}} <!--currentErrorMsg-->
+		</div>
+        <button class="btn btn-success btn-block" ng-click="logIn()"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+        <hr>
+        <!-- <p>Don't have an account!</p>  -->
+        <button class="btn btn-primary btn-block" type="button" ng-click="toggleSignInUp($event)" id="btn-signup"><i class="fa fa-user-plus"></i> Sign up New Account</button>
+        </form>
+        
+        <form class="form-signup">
+            <div class="social-login">
+                <button class="btn google-btn social-btn" type="button" onclick="$('#google').trigger('click');"><span><i class="fa fa-google-plus"></i> Sign up with Google+</span> </button>
+            </div>
+            
+            <p style="text-align:center">OR</p>
+
+            <input type="text" id="user-name" ng-model="user.user_name" class="form-control" placeholder="User name" required="" autofocus="">
+            <input type="email" id="user-email" ng-model="user.email" class="form-control" placeholder="Email address" required autofocus="">
+            <input type="password" id="user-pass" ng-model="user.password" class="form-control" placeholder="Password" required autofocus="">
+            <input type="password" id="user-repeatpass" ng-model="user.repeatPassword" class="form-control" placeholder="Repeat Password" required autofocus="">
+            <div ng-show="errormessage" class="alert alert-danger pull-left" role="alert">
+                {{errormessage}} <!--currentErrorMsg-->
+            </div>
+            <button class="btn btn-primary btn-block" ng-click="signUp()"><i class="fa fa-user-plus"></i> Sign Up</button>
+            <a href="" id="cancel_signup" ng-click="toggleSignInUp($event)"><i class="fa fa-angle-left"></i> Back</a>
+        </form>
+        
+</div>

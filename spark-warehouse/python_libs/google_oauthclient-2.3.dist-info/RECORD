@@ -1,0 +1,11 @@
+google_oauthclient-2.3.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+google_oauthclient-2.3.dist-info/METADATA,sha256=IFND65A6BjQNCQrj5IA9zXc16lwjaI1fcAZE9m-6OHI,366
+google_oauthclient-2.3.dist-info/RECORD,,
+google_oauthclient-2.3.dist-info/WHEEL,sha256=NvLheO0f8_uAcwoMijaCN7IVIIaldpzEnN1plXS6P6E,97
+google_oauthclient-2.3.dist-info/top_level.txt,sha256=vi390WrPEhnP4fZtDlH4WyHhNxSJl2OeZa4xNbPkLnM,19
+google_oauthclient/__init__.py,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+google_oauthclient/__pycache__/__init__.cpython-35.pyc,,
+google_oauthclient/__pycache__/urls.cpython-35.pyc,,
+google_oauthclient/auth_helpers.py,sha256=uqnBDhVGBbAKR1rq3muza2QQLw-A0uCr6MukwgNoGLA,2532
+google_oauthclient/urls.py,sha256=888kOV4n33AUsckSB19wWJT8IOFVxDQwsJ7nSAqUVJM,316
+google_oauthclient/views.py,sha256=PsOb2HLMGNoQeQaoE3FSNcNpNVZao30kBCsKdXWd1A4,1538

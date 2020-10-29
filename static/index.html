@@ -1,0 +1,131 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <meta name="google-signin-scope" content="profile email" crossorigin="anonymous" SameSite="none">
+        <meta name="google-signin-client_id" content="902435638274-3q0iokto9629nbbi9f56n5v812t5e5lg.apps.googleusercontent.com" crossorigin="anonymous" SameSite="none">
+        <script>
+            function init() {
+            
+
+                gapi.load('auth2,signin2', function() {
+                    //console.log(gapi.auth2.getAuthInstance().currentUser.get().isSignedIn())
+                    auth2 = gapi.auth2.init({
+                    client_id: '902435638274-3q0iokto9629nbbi9f56n5v812t5e5lg.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile email'
+                    });
+                    element = document.getElementById('google');
+                    auth2.attachClickHandler(element, {}, onSignIn, function(){});
+                });
+
+            }
+            function onSignIn(googleUser) {
+                console.log('onSignIn!');
+             }
+
+
+        </script>
+        
+
+        <script src="https://apis.google.com/js/platform.js?onload=init" async defer crossorigin="anonymous" SameSite="none"></script>
+        
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!-- title of site -->
+        <title>Decides For You</title>
+
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="logo/favicon.png"/>
+
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="css/linearicons.css">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="css/animate.css">
+
+		<!--flaticon.css-->
+        <link rel="stylesheet" href="css/flaticon.css">
+
+		<!--slick.css-->
+        <link rel="stylesheet" href="css/slick.css">
+		<link rel="stylesheet" href="css/slick-theme.css">
+
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="css/bootsnav.css" >
+
+        <!--style.css-->
+        <link rel="stylesheet" href="css/style.css">
+
+        <!--responsive.css-->
+        <link rel="stylesheet" href="css/responsive.css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+<body ng-app="App">
+
+<div id="cover-spin"><h1 id="cover-spin-header" style="text-align: center;"></h1></div>
+<button id="google" hidden>google</button>
+<div hidden class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="float: right;"></div>
+  <div data-ng-controller="userController"></div> <!--data-ng-init="init('%some_backend_value%')"-->
+  <ng-view></ng-view>
+  <!-- Include all js compiled plugins (below), or include individual files as needed -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-route.js"></script>
+  <script src="js/Angular/app.js"></script>
+  <script src="js/Angular/services.js"></script>
+  <script src="js/Angular/controllers.js"></script>
+  <script src="js/Angular/directives.js"></script>
+
+
+        <!--modernizr.min.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+        <script type="text/javascript" src="js/jquery.js" ></script>
+		<!--bootstrap.min.js-->
+        <script src="js/bootstrap.min.js"></script>
+
+		<!-- bootsnav js -->
+		<script src="js/bootsnav.js"></script>
+
+        <!--feather.min.js-->
+        <script  src="js/feather.min.js"></script>
+
+        <!-- counter js -->
+        
+		<script src="js/jquery.counterup.min.js"></script>
+        <script src="js/waypoints.min.js"></script>
+        
+
+        <!--slick.min.js-->
+        <script src="js/slick.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+        <!--Custom JS-->
+        <script src="js/custom.js"></script>
+
+</body>
+</html>
