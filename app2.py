@@ -199,7 +199,7 @@ def update_user_profile():
     update_user(email, "" if obj['user_name'] is None else obj['user_name']
                 , obj['education'], obj['YOB'], obj['gender'], obj['country_id'],update_demographic)
     update_user_courses(email,obj['user_courses'])
-    spark_session = get_or_create_SparkSession()
+    #spark_session = get_or_create_SparkSession()
     if update_demographic:
         predictions_sparkdf = Cluster.rearrange_clusters(spark_session, email)
         Cluster.update_db_clusters(predictions_sparkdf, email)
